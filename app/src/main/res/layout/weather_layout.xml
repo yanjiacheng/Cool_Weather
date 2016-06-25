@@ -5,7 +5,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#2fda0d">
+    android:background="#fce802">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="#FFF"
+            android:textColor="#FFFfff"
             android:textSize="18sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -90,5 +90,29 @@
                 android:textColor="#fff"
                 android:textSize="40sp"/>
         </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刷  新"
+            android:id="@+id/refresh_weather"
+            android:layout_marginBottom="70dp"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/publish_text"
+            android:layout_toStartOf="@+id/publish_text" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换城市"
+            android:id="@+id/switchCity"
+            android:layout_marginBottom="26dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/publish_text"
+            android:layout_alignEnd="@+id/publish_text"
+            android:layout_alignLeft="@+id/refresh_weather"
+            android:layout_alignStart="@+id/refresh_weather"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless" />
     </RelativeLayout>
 </LinearLayout>
