@@ -149,7 +149,8 @@ public class CoolWeatherDB{
 
     /**
      * 获得指定城市下面所有的县城信息
-     * @param cityId 城市ID
+     *
+     * @param cityId 城市Id
      * @return 所有县城对象列表
      */
     public List<County> loadCounties(int cityId){
