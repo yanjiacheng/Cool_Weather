@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import yanjiacheng.com.cool_weather.R;
+import yanjiacheng.com.cool_weather.service.AutoUpdateService;
 import yanjiacheng.com.cool_weather.util.HttpCallbackListener;
 import yanjiacheng.com.cool_weather.util.HttpUtil;
 import yanjiacheng.com.cool_weather.util.Utility;
@@ -22,6 +23,7 @@ import yanjiacheng.com.cool_weather.util.Utility;
  */
 public class WeatherActivity extends AppCompatActivity implements View.OnClickListener{
     private LinearLayout weatherInfoLayout;
+    private RelativeLayout relativeLayout_info;//用来改变背景图片
     /**
      * 用于显示城市名
      */
@@ -42,6 +44,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
 
         //初始化各种控件
         weatherInfoLayout=(LinearLayout)findViewById(R.id.weather_info_layout);
+        relativeLayout_info=(RelativeLayout)findViewById(R.id.info);
         cityNameText=(TextView)findViewById(R.id.city_name);
         publishText=(TextView)findViewById(R.id.publish_text);
         weatherDespText=(TextView)findViewById(R.id.weather_desp);
@@ -52,7 +55,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         refreshWeather=(Button)findViewById(R.id.refresh_weather);
 
         String countyCode=getIntent().getStringExtra("county_code");//取得Intent带过来的数据
-        Log.d("TAG2","county_code"+countyCode);
+       // Log.d("TAG2","county_code"+countyCode);
         if(!TextUtils.isEmpty(countyCode)){
             //有县级代码时就去查询天气
             publishText.setText("同步中...");
@@ -163,12 +166,16 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     private void showWeather() {
         SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(this);
         cityNameText.setText(prefs.getString("city_name",""));
-        temp1Text.setText(prefs.getString("temp1",""));
-        temp2Text.setText(prefs.getString("temp2",""));
+        temp1Text.setText(prefs.getString("temp2",""));
+        temp2Text.setText(prefs.getString("temp1",""));
         weatherDespText.setText(prefs.getString("weather_desp",""));
         publishText.setText("今天"+prefs.getString("publish_time","")+"发布");
         currentDateText.setText(prefs.getString("current_date",""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
+
+        //在这个里开始计时，使用自动刷新天气
+        Intent intent=new Intent(this, AutoUpdateService.class);
+        startService(intent);//千万别写错了，这是启动服务，不是活动
     }
 }
