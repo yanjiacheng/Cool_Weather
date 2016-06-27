@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -43,6 +44,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         weatherInfoLayout=(LinearLayout)findViewById(R.id.weather_info_layout);
         cityNameText=(TextView)findViewById(R.id.city_name);
         publishText=(TextView)findViewById(R.id.publish_text);
+        weatherDespText=(TextView)findViewById(R.id.weather_desp);
         temp1Text=(TextView)findViewById(R.id.temp1);
         temp2Text=(TextView)findViewById(R.id.temp2);
         currentDateText=(TextView)findViewById(R.id.current_date);
@@ -50,6 +52,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         refreshWeather=(Button)findViewById(R.id.refresh_weather);
 
         String countyCode=getIntent().getStringExtra("county_code");//取得Intent带过来的数据
+        Log.d("TAG2","county_code"+countyCode);
         if(!TextUtils.isEmpty(countyCode)){
             //有县级代码时就去查询天气
             publishText.setText("同步中...");
@@ -74,7 +77,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         switch(v.getId()){
             case   R.id.switchCity:
                 Intent intent=new Intent(this,ChooseAreaActivity.class);
-                intent.putExtra("from_weather_activity",true);
+                intent.putExtra("from_weather_activity", true);
                 startActivity(intent);
                 finish();
                 break;
@@ -97,7 +100,8 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
      * @param weatherCode 天气代号
      */
     private void queryWeatherInfo(String weatherCode) {
-
+                String address="http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
+                queryFormServer(address,"weatherCode");
 
     }
 
