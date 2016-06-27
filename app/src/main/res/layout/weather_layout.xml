@@ -5,22 +5,46 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#fce802">
+    android:background="#fdfbfb">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/city_name"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:textSize="32sp"/>
+        android:textColor="#FF27A5F9"
+        android:textSize="32sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_replay_24dp"
+        android:id="@+id/refresh_weather"
+        android:textSize="16sp"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/switchCity"
+        android:background="@drawable/ic_keyboard_backspace_24dp"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#27A5F9">
+        android:background="#27A5F9"
+        android:id="@+id/info">
         <TextView
             android:id="@+id/publish_text"
             android:layout_width="wrap_content"
@@ -36,21 +60,12 @@
         android:id="@+id/weather_info_layout"
         android:orientation="vertical"
         android:layout_above="@+id/linearLayout"
-        android:layout_toLeftOf="@+id/linearLayout"
-        android:layout_toStartOf="@+id/linearLayout"
-        android:layout_marginRight="49dp"
-        android:layout_marginEnd="49dp">
-        <TextView
-            android:id="@+id/current_date"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="18sp"/>
+        android:layout_centerHorizontal="true">
+
         <TextView
             android:id="@+id/weather_desp"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="40sp"
@@ -59,8 +74,8 @@
     </LinearLayout>
 
         <LinearLayout
-            android:layout_width="57dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
@@ -91,28 +106,16 @@
                 android:textSize="40sp"/>
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="刷  新"
-            android:id="@+id/refresh_weather"
-            android:layout_marginBottom="70dp"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/publish_text"
-            android:layout_toStartOf="@+id/publish_text" />
 
-        <Button
+        <TextView
+            android:id="@+id/current_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="切换城市"
-            android:id="@+id/switchCity"
-            android:layout_marginBottom="26dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/publish_text"
-            android:layout_alignEnd="@+id/publish_text"
-            android:layout_alignLeft="@+id/refresh_weather"
-            android:layout_alignStart="@+id/refresh_weather"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless" />
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:layout_alignTop="@+id/publish_text"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </LinearLayout>

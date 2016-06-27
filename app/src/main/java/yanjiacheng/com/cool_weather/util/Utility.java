@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,7 +112,6 @@ public class Utility {
             String publishTime=weatherInfo.getString("ptime");
             //将服务器返回的所有天气信息解析后存储到SharedPrederences文件中
             saveWeatherInfo(context,cityName,weatherCode,temp1,temp2,weatherDesp,publishTime);
-            Log.d("aaaaa",cityName+"-"+weatherCode+"-"+temp1+"-"+temp2+"-"+weatherDesp+"-"+publishTime);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -134,7 +132,7 @@ public class Utility {
         editor.putString("weather_desp", weatherDesp);
         editor.putString("publish_time", publishTime);
         editor.putString("current_date",sdf.format(new Date()));
-        Log.d("shared22",cityName+"  "+weatherCode+ " "+temp1);
+       // Log.d("shared22",cityName+"  "+weatherCode+ " "+temp1);
         editor.commit();
     }
 }

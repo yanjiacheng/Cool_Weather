@@ -1,6 +1,7 @@
 package yanjiacheng.com.cool_weather.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class ChooseAreaActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private CoolWeatherDB coolWeatherDB;
     private List<String> dataList=new ArrayList<>();
+
+    private boolean isFromWeatherActivity;//用判断Intent是不是来自WeatherActivity
     /**
      * 省列表
      */
@@ -62,7 +65,9 @@ public class ChooseAreaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getBoolean("city_selected",false)){
+        isFromWeatherActivity=getIntent().getBooleanExtra("from_weather_activity",false);//如果为空，默认为false
+       //如果已经选择过城市，并且这个调用不是来自WeatherActivity活动，则直接进入WeatherActivity，显示以前选择过的城市天气
+        if(prefs.getBoolean("city_selected",false)&&!isFromWeatherActivity){
             Intent intent=new Intent(this,WeatherActivity.class);
             startActivity(intent);
             finish();
@@ -88,6 +93,7 @@ public class ChooseAreaActivity extends AppCompatActivity {
                     queryCounties();
                 }else if(currentLevel==LEVEL_COUNTY){
                     String countyCode=countyList.get(position).getCountyCode();
+//                    Log.d("TAG2","county_code"+countyCode);
                     Intent intent=new Intent(ChooseAreaActivity.this,WeatherActivity.class);
                     intent.putExtra("county_code",countyCode);
                     startActivity(intent);
@@ -116,8 +122,6 @@ public class ChooseAreaActivity extends AppCompatActivity {
             queryFromServer(null,"province");//服务器上查询数据
         }
     }
-
-
 
     /**
      * 查询省内所有的城市优先在数据库查询，没有的话去服务器上查询
@@ -242,7 +246,11 @@ public class ChooseAreaActivity extends AppCompatActivity {
             queryCities();
         }else if(currentLevel==LEVEL_CITY){
             queryProvinces();
-        }else{
+        }else{//如果是来自WeatherActivity活动，按下back键，则返回到该活动
+            if(isFromWeatherActivity){
+                Intent intent=new Intent(this,WeatherActivity.class);
+                startActivity(intent);
+            }
             finish();
         }
 
